@@ -14,8 +14,9 @@ H5P.ImageJuxtaposition = function ($) {
    *
    * @param {object} options from semantics.json.
    * @param {number} content id.
+   * @param {object} extras Extras, e.g. metadata.
    */
-  function C(options, id) {
+  function C(options, id, extras) {
     // Extend defaults with provided options
     this.options = $.extend(true, {}, {
       title: '',
@@ -28,10 +29,13 @@ H5P.ImageJuxtaposition = function ($) {
         labelAfter: ''
       },
       behavior: {
+        shotTitle: false,
         startingPosition: 50,
         sliderOrientation: 'horizontal' }
     }, options);
     this.id = id;
+
+    this.extras = extras || {};
 
     // Initialize event inheritance
     H5P.EventDispatcher.call(this);
@@ -49,8 +53,8 @@ H5P.ImageJuxtaposition = function ($) {
   C.prototype.attach = function ($container) {
     this.container = $container;
     $container.addClass("h5p-image-juxtaposition");
-    if (this.options.title) {
-      $container.append('<div class="h5p-image-juxtaposition-title">' + this.options.title + '</div>');
+    if (this.options.behavior.showTitle) {
+      $container.append('<div class="h5p-image-juxtaposition-title">' + this.getTitle() + '</div>');
     }
 
     if (typeof this.options.imageBefore.imageBefore === 'undefined' || typeof this.options.imageAfter.imageAfter === 'undefined') {
@@ -77,6 +81,15 @@ H5P.ImageJuxtaposition = function ($) {
     $(window).mouseup(function() {
       slider.mouseup();
     });
+  };
+
+  /**
+   * Get the content type title.
+   *
+   * @return {string} title.
+   */
+  C.prototype.getTitle = function () {
+    return (this.extras.metadata && this.extras.metadata.title) ? this.extras.metadata.title : 'Image Juxtaposition';
   };
 
   /**
