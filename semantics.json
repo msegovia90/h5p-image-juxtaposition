@@ -81,15 +81,15 @@
         "label": "Slider orientation",
         "description": "Horizontal will move left and right, vertical will move up and down.",
         "options": [
-            {
-              "value": "horizontal",
-              "label": "Horizontal"
-            },
-            {
-              "value": "vertical",
-              "label": "Vertical"
-            }
-          ],
+          {
+            "value": "horizontal",
+            "label": "Horizontal"
+          },
+          {
+            "value": "vertical",
+            "label": "Vertical"
+          }
+        ],
         "default": "horizontal"
       }
     ]
